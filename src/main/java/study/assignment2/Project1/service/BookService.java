@@ -13,7 +13,7 @@ public interface BookService {
 
     void addMultipleBooks(List<BookDto> bookDtos);
 
-    void updateAuthorName(String prevoiusName, String updatedName);
+    Integer updateAuthorName(String prevoiusName, String updatedName);
 
-    void deleteBooksCostlierThan(Integer cost);
+    Integer deleteBooksCostlierThan(Integer cost);
 }

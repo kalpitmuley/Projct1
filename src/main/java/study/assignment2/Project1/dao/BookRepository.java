@@ -11,10 +11,10 @@ import javax.transaction.Transactional;
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     @Modifying
-    @Query("update Book b set b.authorName = :updatedName where b.authorName like :previousName%")
-    void updateAuthorName(String previousName, String updatedName);
+    @Query("UPDATE Book b SET b.authorName = :updatedName WHERE b.authorName LIKE CONCAT(:previousName,' ','%') OR b.authorName LIKE :previousName")
+    Integer updateAuthorName(String previousName, String updatedName);
 
     @Modifying
     @Query("DELETE Book b WHERE b.cost > :cost")
-    void deleteBooksCostlierThan(Integer cost);
+    Integer deleteBooksCostlierThan(Integer cost);
 }

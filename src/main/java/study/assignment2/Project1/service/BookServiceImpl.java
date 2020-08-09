@@ -41,13 +41,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void updateAuthorName(String prevoiusName, String updatedName) {
-        bookRepository.updateAuthorName(prevoiusName + " ", updatedName);
+    public Integer updateAuthorName(String prevoiusName, String updatedName) {
+        return bookRepository.updateAuthorName(prevoiusName, updatedName);
     }
 
     @Override
-    public void deleteBooksCostlierThan(Integer cost) {
-        bookRepository.deleteBooksCostlierThan(cost);
+    public Integer deleteBooksCostlierThan(Integer cost) {
+        return bookRepository.deleteBooksCostlierThan(cost);
     }
 
     private BookEntity createBook(BookDto bookDto) {
@@ -59,7 +59,6 @@ public class BookServiceImpl implements BookService {
         for (BookDto bookDto :
                 bookDtos) {
             bookEntityList.add(createBook(bookDto));
-
         }
         return bookEntityList;
     }

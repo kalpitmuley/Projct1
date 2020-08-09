@@ -48,22 +48,24 @@ public class BookResource {
     public String addMultipleBooks(@RequestBody List<BookDto> bookDtos) {
         logger.info("Adding " + bookDtos.size() + " books");
         bookService.addMultipleBooks(bookDtos);
-        return "Books Added to the DB";
+        return bookDtos.size() + " Books Added to the DB";
     }
 
     @PutMapping("/book/updateAuthor")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateAuthorName(@RequestParam(value = "previousName", required = false, defaultValue = "Will") String previousName,
+    public String updateAuthorName(@RequestParam(value = "previousName", required = false, defaultValue = "Will") String previousName,
                                  @RequestParam(value = "newName", required = false, defaultValue = "Williams") String updatedName) {
         logger.info("Updating the Author name from" + previousName + " to " + updatedName);
-        bookService.updateAuthorName(previousName, updatedName);
+        Integer updatedRows = bookService.updateAuthorName(previousName, updatedName);
+        return updatedRows +" Rows updated";
     }
 
     @DeleteMapping("/book/delete")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteBooksCostlierThan(@RequestParam(value = "cost", required = false, defaultValue = "1000") Integer cost) {
+    public String deleteBooksCostlierThan(@RequestParam(value = "cost", required = false, defaultValue = "1000") Integer cost) {
         logger.info("Deleting books costlier than: " + cost);
-        bookService.deleteBooksCostlierThan(cost);
+        Integer deletedRows = bookService.deleteBooksCostlierThan(cost);
+        return deletedRows +" entries deleted";
     }
 
 }

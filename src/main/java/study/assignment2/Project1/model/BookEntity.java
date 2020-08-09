@@ -1,6 +1,7 @@
 package study.assignment2.Project1.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,6 +26,9 @@ public class BookEntity {
     @CreationTimestamp
     private Date timestamp;
 
+    @UpdateTimestamp
+    private Date lastsavedate;
+
     public BookEntity() {
     }
 
@@ -32,6 +36,14 @@ public class BookEntity {
         this.name = name;
         this.authorName = authorName;
         this.cost = cost;
+    }
+
+    public Date getLastsavedate() {
+        return lastsavedate;
+    }
+
+    public void setLastsavedate(Date lastsavedate) {
+        this.lastsavedate = lastsavedate;
     }
 
     public Long getId() {
