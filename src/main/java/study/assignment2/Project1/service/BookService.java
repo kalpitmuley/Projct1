@@ -11,6 +11,8 @@ public interface BookService {
 
     void addBook(BookDto bookDto);
 
+    void addMultipleBooks(List<BookDto> bookDtos);
+
     void updateAuthorName(String prevoiusName, String updatedName);
 
     void deleteBooksCostlierThan(Integer cost);

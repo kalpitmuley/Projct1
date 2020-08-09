@@ -35,8 +35,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void addMultipleBooks(List<BookDto> bookDtos) {
+        List<BookEntity> bookEntityList = createBookList(bookDtos);
+        bookRepository.saveAll(bookEntityList);
+    }
+
+    @Override
     public void updateAuthorName(String prevoiusName, String updatedName) {
-        bookRepository.updateAuthorName(prevoiusName, updatedName);
+        bookRepository.updateAuthorName(prevoiusName + " ", updatedName);
     }
 
     @Override
@@ -46,5 +52,15 @@ public class BookServiceImpl implements BookService {
 
     private BookEntity createBook(BookDto bookDto) {
         return new BookEntity(bookDto.getName(), bookDto.getAuthorName(), bookDto.getCost());
+    }
+
+    private List<BookEntity> createBookList(List<BookDto> bookDtos) {
+        List<BookEntity> bookEntityList = new ArrayList<>();
+        for (BookDto bookDto :
+                bookDtos) {
+            bookEntityList.add(createBook(bookDto));
+
+        }
+        return bookEntityList;
     }
 }

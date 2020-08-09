@@ -26,8 +26,7 @@ public class BookResource {
     @GetMapping("/server/port")
     public String getServerPort() {
         logger.info("Server port API returned port: " + serverPort);
-        String result = "Server is running on port: "+serverPort;
-        return result;
+        return "Server is running on port: " + serverPort;
     }
 
     @GetMapping("/book/all")
@@ -44,18 +43,26 @@ public class BookResource {
         bookService.addBook(bookDto);
     }
 
+    @PostMapping("/book/addMultiple")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String addMultipleBooks(@RequestBody List<BookDto> bookDtos) {
+        logger.info("Adding " + bookDtos.size() + " books");
+        bookService.addMultipleBooks(bookDtos);
+        return "Books Added to the DB";
+    }
+
     @PutMapping("/book/updateAuthor")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateAuthorName(@RequestParam(value = "previousName", required = false, defaultValue = "Will") String previousName,
-                                 @RequestParam(value = "UpdatedName", required = false, defaultValue = "Williams") String updatedName) {
-        logger.info("Updating the Author name from" +previousName +" to " +updatedName);
+                                 @RequestParam(value = "newName", required = false, defaultValue = "Williams") String updatedName) {
+        logger.info("Updating the Author name from" + previousName + " to " + updatedName);
         bookService.updateAuthorName(previousName, updatedName);
     }
 
     @DeleteMapping("/book/delete")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteBooksCostlierThan(@RequestParam(value = "cost", required = false, defaultValue = "1000") Integer cost) {
-        logger.info("Deleting books costlier than: "+cost);
+        logger.info("Deleting books costlier than: " + cost);
         bookService.deleteBooksCostlierThan(cost);
     }
 
