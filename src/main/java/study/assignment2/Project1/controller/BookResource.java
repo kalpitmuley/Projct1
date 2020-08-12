@@ -82,7 +82,7 @@ public class BookResource {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String updateAuthorName(@RequestParam(value = "previousName", required = false, defaultValue = "Will") String previousName,
                                    @RequestParam(value = "newName", required = false, defaultValue = "Williams") String updatedName) {
-        logger.info("Updating the Author name from" + previousName + " to " + updatedName);
+        logger.info("Updating the Author name from " + previousName + " to " + updatedName);
         Integer updatedRows = bookService.updateAuthorName(previousName, updatedName);
         return updatedRows + " Rows updated";
     }
@@ -96,8 +96,8 @@ public class BookResource {
     @DeleteMapping("/book/delete")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String deleteBooksCostlierThan(@RequestParam(value = "cost", required = false, defaultValue = "1000") Integer cost) {
-        logger.info("Deleting books costlier than: " + cost);
         Integer deletedRows = bookService.deleteBooksCostlierThan(cost);
+        logger.info(deletedRows + " books deleted costlier than: " + cost);
         return deletedRows + " entries deleted";
     }
 
